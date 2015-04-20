@@ -19,8 +19,8 @@ wheeldata.nSpokes = nSpokes;
 wheeldata.rHub = rHub;
 wheeldata.rRim = rRim;
 wheeldata.wHub = wHub;
-%wheeldata.stiffnessX = EIx
-%wheeldata.stiffnessZ = EIz
+%wheeldata.stiffnessX = stiffnessX
+%wheeldata.stiffnessZ =
 %-------------------------------------------------------------------------
 
 %Spoke tension is initialized before external load is applied.
