@@ -7,6 +7,4 @@ function newSpokes = deformTurn(spokes,fTurn,wheeldata)
 %perpendicular to the rim plane and driving direction
 %wheeldata is a struct containing data such as bending stiffness.
 
-%Does this even work?
-
 newSpokes = spokes;
