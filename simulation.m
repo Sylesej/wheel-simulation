@@ -5,7 +5,7 @@ close 'all'
 %     Initialization
 %-------------------------------------------------------------------------
 t0 = 1e-3; %[N] Pretension in spokes, assumed constant
-nSpokes = 32; %[-] Number of spokes
+nSpokes = 4; %[-] Number of spokes
 rHub = 10e-3; %[m] Radius of hub
 rRim = 40e-2; %[m] Radius of rim (where spokes are attached)
 wHub = 80e-3; %[m] Width of hub (where spokes are attached)
