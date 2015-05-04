@@ -88,7 +88,6 @@ for(n=1:N)
         K(n*3-1, n*3-2) = k; %Dette er det jeg er mest i tvivl om. At kræfterne bliver 0 i punktet, der bliver flyttet?
         
     elseif(mod(n-1,step+1)==0)
-        K(n*3-2, n*3-2) = 1;
         %Reaktionskræfterne i x på grund af vinkelrotationen
         %Momenterne grundet vinkelrotationen i et punkt.
         K(n*3, n*3) = 8*EI/l;
