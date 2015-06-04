@@ -14,6 +14,11 @@ aSpokes = pi*(2e-3)^2; %[mm^2] Area of spoke
 aBracing = asin(wHub/(rRim-rHub)); %Bracing angle of spokes are computed
 EIx = 1560*10^(-3*4)*70*10^9; %[Nm^2] bending stiffness of rim about x axis (as happens from weight
 EIz = 1; %[?] bending stiffness of rim about z axis (as happens from turn)
+pointFactor = 0; %Faktor, der tilføjer til detaljering af FEM-beregningen.
+
+%Ting til stivhedsmatricen
+nPoints = pointFactor*nSpokes;
+
 
 %Random
 fWeight = 1000;
@@ -29,6 +34,10 @@ wheeldata.ESpokes = ESpokes;
 wheeldata.aSpokes = aSpokes;
 %wheeldata.stiffnessX = EIx
 %wheeldata.stiffnessZ = EIz
+wheeldata.nPoints = nPoints;
+wheeldata.pointFactor = pointFactor;
+
+
 %-------------------------------------------------------------------------
 
 %Spoke tension is initialized before external load is applied.
@@ -36,12 +45,10 @@ tSpoke = t0.*ones(1,nSpokes);
 
 %Coordinates of spokes are generated
 spokes = spokeCoordinates(wheeldata);
+K = stiffnessmatrix(wheeldata);
 
 %Wheel are plotted before deformation
 %plotWheel(spokes)
-
-%Concentrated force from weight is applied
-[theta,spokes] = deformWeight(spokes,fWeight,wheeldata);
 
 %Force from a turn is applied
 %spokes = deformTurn(spokes,fTurn,wheeldata)

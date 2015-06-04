@@ -7,7 +7,7 @@ nspokes = wheeldata.nSpokes;
 npoints = wheeldata.nPoints;
 rRim = wheeldata.rRim;
 N = nspokes+npoints;
-step = pointsFactor;
+step = wheeldata.pointFactor;
 K = zeros(N*3, N*3);
 Sigma = 2*pi/N;
 EI = wheeldata.EIx;
@@ -88,12 +88,8 @@ for n=1:N
         K(n*3-1, n*3-2) = k; %Dette er det jeg er mest i tvivl om. At krï¿½fterne bliver 0 i punktet, der bliver flyttet?
         
     elseif(mod(n-1,step+1)==0)
-<<<<<<< HEAD
+        
         %Reaktionskræfterne i x på grund af vinkelrotationen
-=======
-        K(n*3-2, n*3-2) = 1;
-        %Reaktionskrï¿½fterne i x pï¿½ grund af vinkelrotationen
->>>>>>> ba2fc3c03595302b565cd8487e88f16e74fe8c6d
         %Momenterne grundet vinkelrotationen i et punkt.
         K(n*3, n*3) = 8*EI/l;
         K(n*3-3, n*3) = 2*EI/l;
