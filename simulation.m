@@ -17,8 +17,8 @@ clc;
 %-------------------------------------------------------------------------
 
 % Load
-fWeight =-1000;
-fTurn = 1000;
+fWeight =0;
+fTurn = 250;
 
 % Spoke properties
 ESpokes = 210e9; %[Pa] Youngs module for spokes (steel)
@@ -32,7 +32,7 @@ EIz = Erim * 2964e-8; %E-modul for twill (g�t) gange inertimoment fra SW
 EIy = Erim * 17924.40; %[Nm^2] bending stiffness of rim around y axis
 
 % Wheel dimensions
-nSpokes = 32; %[-] Number of spokes
+nSpokes = 26; %[-] Number of spokes
 rHub = 10e-3; %[m] Radius of hub
 rRim = 40e-2; %[m] Radius of rim (where spokes are attached)
 wHub = 80e-3; %[m] Width of hub (where spokes are attached)
@@ -58,18 +58,13 @@ wheeldata.kSpokes = kSpokes;
 
 %-------------------------------------------------------------------------
 
-%Spoke tension is initialized before external load is applied.
-%tSpoke = t0.*ones(1,nSpokes); 
-
 u0 = zeros(nSpokes*6,1); % Vector holding deformation before load (0)
 
 %Coordinates of spokes before load are generated
 spokes = spokeCoordinates(wheeldata,u0);
 
-%Wheel are plotted before deformation
-figure
+figure %Wheel are plotted before deformation
 plotWheel(spokes,0)
-
 
 % Forces are put in a vector, forces are applied in middle of rim
 a = nSpokes*6;

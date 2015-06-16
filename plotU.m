@@ -4,6 +4,9 @@ function plotU(wheeldata,K,fy,fz)
 % It takes the arguments wheeldata (struct), the stiffnessmatrix of the
 % wheel, K, as well as the forces fy and fz.
 
+rRim = wheeldata.rRim;
+rHub = wheeldata.rHub;
+wHub = wheeldata.wHub;
 k= wheeldata.kSpokes;
 theta = atan(wheeldata.wHub/wheeldata.rRim); % vinklen mellem egen og f�lg
 
@@ -12,7 +15,6 @@ f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kr�fter
 
 u = pinv(K)*f; % Deformation are found by solving the equation system
 
-hold off
 % -------------------------------------------------------------------------
 % Plots are made!
 % -------------------------------------------------------------------------
@@ -26,21 +28,23 @@ title 'Udb�jning i y-retning'
 
 subplot(2,2,3)
 plot(u(3:6:a))
-title 'Udb�jning i z-retning'
+title 'Udbøjning i z-retning'
 
 subplot(2,2,4)
-u2 = (u(2:6:a)+u(3:6:a)*sin(theta))*k; %Forces in spokes are calculated
-plot(u2)
+l0 = sqrt((rRim-rHub)^2+wHub^2);
+ld = sqrt((rRim+u(2:6:a)-rHub).^2+(wHub+u(3:6:a)).^2); %pythagoras!
+egpower =(l0-ld)*k; %pythagoras?
+%Forces in spokes are calculated
+plot(egpower)
 title 'Eg-kr�fter'
 
 % Spoke forces are projected onto main axis to check force equilibrium.
-egF = zeros(length(u2),2);
+egF = zeros(length(egpower),2);
 sigma = 1:wheeldata.nSpokes;
 sigma = sigma*2*pi/wheeldata.nSpokes;
 %Antager meget lille forskydning af eger
 
-egF(:,1) = sin(sigma).*u2'; % Spoke forces are projected 
-egF(:,2) = cos(sigma).*u2';
+egF(:,1) = sin(sigma).*egpower'; % Spoke forces are projected 
+egF(:,2) = cos(sigma).*egpower';
 
 display(['Summen af egekræfter i y: ' num2str(sum(egF(:,2)))])
-display(['Summen af egekræfter i z: ' num2str(sum(egF(:,1)))])
