@@ -1,25 +1,24 @@
 function [ K ] = stiffnessmatrix(wheeldata)
-%STIFFNESSMATRIX Creats a stiffnessmatrix for a wheel with the given
-%Bemï¿½rk, at det nu antages, at deformationerne er sï¿½ smï¿½,
-%at de ikke har
-%indvirkning pï¿½ vinklen ved det punkt, der ikke pï¿½virkes.
-%parameters
-nspokes = wheeldata.nSpokes;
-npoints = wheeldata.nPoints;
-rRim = wheeldata.rRim;
-N = nspokes+npoints;
-step = wheeldata.pointFactor;
-K = zeros(N*6, N*6);
-Sigma = 2*pi/N;
-EIz = wheeldata.EIz;
+% STIFFNESSMATRIX Creates a stiffnessmatrix for a wheel with the properties
+% givin in a wheeldata struct.
+% Deformations are assumed small.
+
+% Properties are loaded from wheeldata struct
+N = wheeldata.nSpokes; %Number of spokes
+rRim = wheeldata.rRim; %Radius of rim
+EIz = wheeldata.EIz; %Moments of inertia
 EIy = wheeldata.EIy;
-EA = wheeldata.EA;
-k=wheeldata.kSpokes;
-l = 2*rRim*sin(pi/N); %Regner sidelï¿½ngden i hjulet
-theta = atan(wheeldata.wHub/wheeldata.rRim) % vinklen mellem egen og fælg
+EA = wheeldata.EA; %Tensile moment
+k=wheeldata.kSpokes; %Stiffness of spokes
+l = 2*rRim*sin(pi/N); %Length of a beam in the N-polygon.
+
+K = zeros(N*6, N*6); %Stiffnessmatrix is initialized
+Sigma = 2*pi/N; %Angle between two adjunctant beams
+theta = atan(wheeldata.wHub/wheeldata.rRim); % Angle between spoke and rim
+
 for n=1:N
     if(n==1)
-        %Starten er kun i x-y og alle z-kræfter og momenter bliver 0.
+        %Starten er kun i x-y og alle z-krï¿½fter og momenter bliver 0.
         %___________________________________________________________%
         %Momenterne om z grundet vinkelrotationen om z-aksen i et punkt.
         K(n*6, n*6) = 8*EIz/l;   %Punkt(n)
@@ -159,7 +158,7 @@ for n=1:N
         K(n*6-0, n*6-1) = 0;
         
     elseif(n==N)
-         %Starten er kun i x-y og alle z-kræfter og momenter bliver 0.
+         %Starten er kun i x-y og alle z-krï¿½fter og momenter bliver 0.
         %___________________________________________________________%
         %Momenterne om z grundet vinkelrotationen om z-aksen i et punkt.
         K(n*6, n*6) = 8*EIz/l;   %Punkt(n)
@@ -295,7 +294,7 @@ for n=1:N
         
     else  %if(mod(n-1,step+1)==0)
         
-        %Starten er kun i x-y og alle z-kræfter og momenter bliver 0.
+        %Starten er kun i x-y og alle z-krï¿½fter og momenter bliver 0.
         %___________________________________________________________%
         %Momenterne om z grundet vinkelrotationen om z-aksen i et punkt.
         K(n*6, n*6) = 8*EIz/l;   %Punkt(n)

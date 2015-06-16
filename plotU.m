@@ -1,42 +1,43 @@
 function plotU(wheeldata,K,fy,fz)
-
-[a,~] = size(K);
-
-f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kræfter
-
-u = pinv(K)*f;
+% This function creates plots of deformations of the rim as well as forces
+% in the spokes.
+% It takes the arguments wheeldata (struct), the stiffnessmatrix of the
+% wheel, K, as well as the forces fy and fz.
 
 k= wheeldata.kSpokes;
+theta = atan(wheeldata.wHub/wheeldata.rRim); % vinklen mellem egen og fï¿½lg
 
-theta = atan(wheeldata.wHub/wheeldata.rRim); % vinklen mellem egen og fælg
+[a,~] = size(K);
+f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer krï¿½fter
 
-u2 = (u(2:6:a)+u(3:6:a)*sin(theta))*k;
+u = pinv(K)*f; % Deformation are found by solving the equation system
 
 hold off
 
 subplot(2,2,1)
 plot(u(1:6:a))
-title 'Udbøjning i x-retning'
+title 'Udbï¿½jning i x-retning'
 
 subplot(2,2,2)
 plot(u(2:6:a))
-title 'Udbøjning i y-retning'
+title 'Udbï¿½jning i y-retning'
 
 subplot(2,2,3)
 plot(u(3:6:a))
-title 'Udbøjning i z-retning'
+title 'Udbï¿½jning i z-retning'
 
 subplot(2,2,4)
+u2 = (u(2:6:a)+u(3:6:a)*sin(theta))*k; %Forces in spokes are calculated
 plot(u2)
-title 'Eg-kræfter'
+title 'Eg-krï¿½fter'
 
 egF = zeros(length(u2),2);
 sigma = 1:wheeldata.nSpokes;
 sigma = sigma*2*pi/wheeldata.nSpokes;
 %Antager meget lille forskydning af eger
 
-egF(:,1) = sin(sigma).*u2';
-display('Egekræfter i x og y:')
-egF(:,2) = cos(sigma).*u2'
-display('Summen af egekræfter i y')
+egF(:,1) = sin(sigma).*u2'; % Spoke forces are projected 
+egF(:,2) = cos(sigma).*u2';
+
+display('Summen af egekrÃ¦fter i y')
 sum(egF(:,2))

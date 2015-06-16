@@ -1,41 +1,50 @@
+%-------------------------------------------------------------------------
+% SPOKED WHEEL SIMULATION
+%
+% Simulation of a spoked wheel as forces are applied in vertical and
+% horizontal direction.
+% The simulation is made by constructing a stiffnessmatrix using beam
+% theory to calculate the stiffness-values, and then solving for
+% displacements due to the applied forces.
+% ------------------------------------------------------------------------
+
 clear;
 clc;
 clf;
+
 %-------------------------------------------------------------------------
-%     Initialization
+%     Variables
 %-------------------------------------------------------------------------
-t0 = 1e-3; %[N] Pretension in spokes, assumed constant
+
+% Load
+fWeight =-1000;
+fTurn = 1000;
+
+% Spoke properties
+ESpokes = 210e9; %[Pa] Youngs module for spokes (steel)
+aSpokes = pi*(2e-3)^2; %[mm^2] Area of spoke
+t0 = 1e-3; %[N] Pretension in spokes
+
+% Rim porperties
+Erim = 70e9; % Youngs modulus for the rim
+EA = Erim * 119.15; 
+EIx = Erim * 2964e-8;%E-modul for twill (gï¿½t) gange inertimoment fra SW
+EIy = Erim * 17924.40; %[Nm^2] bending stiffness of rim around y axis
+EIz = 1; %[?] bending stiffness of rim about z axis
+
+% Wheel dimensions
 nSpokes = 32; %[-] Number of spokes
 rHub = 10e-3; %[m] Radius of hub
 rRim = 40e-2; %[m] Radius of rim (where spokes are attached)
 wHub = 80e-3; %[m] Width of hub (where spokes are attached)
-ESpokes = 210e9; %[Pa] Youngs module for spokes (steel)
-aSpokes = pi*(2e-3)^2; %[mm^2] Area of spoke
-aBracing = asin(wHub/(rRim-rHub)); %Bracing angle of spokes are computed
-<<<<<<< HEAD
-EIz = 70e6 * 2928.464;%E-modul for twill (gæt) gange inertimoment fra SW
-%1560*10^(-3*4)*70*10^9; %[Nm^2] bending stiffness of rim about x axis (as happens from weight
-EIy = 70e9 * 17924.40; %[?] bending stiffness of rim about z axis (as happens from tu
-EA = 70e9 * 119.15; %For the stiffnessM.
-pointFactor = 0; %Faktor, der tilføjer til detaljering af FEM-beregningen.
-kSpokes = ESpokes*aSpokes;
-%Ting til stivhedsmatricen
-nPoints = pointFactor*nSpokes;
 
 
-%Random
-fWeight =-1000;
-fTurn = 1000;
+kSpokes = ESpokes*aSpokes; %[N/m] Stiffness of spokes
+aBracing = asin(wHub/(rRim-rHub));%[Rad] Bracing angle of spokes
+fy = fWeight;
+fz = fTurn;
 
-EIx = 70e9 * 2964e-8;%E-modul for twill (gï¿½t) gange inertimoment fra SW
-%1560*10^(-3*4)*70*10^9; %[Nm^2] 
-%bending stiffness of rim about x axis (as happens from weight
-EIz = 1; %[?] bending stiffness of rim about z axis (as happens from turn)
-pointFactor = 0; %Faktor, der tilfï¿½jer til detaljering af FEM-beregningen.
-
-%Ting til stivhedsmatricen
-nPoints = pointFactor*nSpokes;
-
+% Wheeldata struct
 wheeldata.t0 = t0;
 wheeldata.EIy = EIy;
 wheeldata.EIz = EIz;
@@ -46,42 +55,39 @@ wheeldata.rRim = rRim;
 wheeldata.wHub = wHub;
 wheeldata.ESpokes = ESpokes;
 wheeldata.aSpokes = aSpokes;
-wheeldata.nPoints = nPoints;
-wheeldata.pointFactor = pointFactor;
 wheeldata.kSpokes = kSpokes;
 
 %-------------------------------------------------------------------------
 
 %Spoke tension is initialized before external load is applied.
-tSpoke = t0.*ones(1,nSpokes); 
+%tSpoke = t0.*ones(1,nSpokes); 
 
-u0 = zeros(nSpokes*6,1);
+u0 = zeros(nSpokes*6,1); % Vector holding deformation before load (0)
 
-%Coordinates of spokes are generated
+%Coordinates of spokes before load are generated
 spokes = spokeCoordinates(wheeldata,u0);
 
-% Forces are put in a vector, forces applied in middle of rim
+%Wheel are plotted before deformation
+figure
+plotWheel(spokes,0)
+
+
+% Forces are put in a vector, forces are applied in middle of rim
 a = nSpokes*6;
-f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kræfter
+f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer krï¿½fter
 
 % Stiffnessmatrix is generated
 K = stiffnessmatrix(wheeldata);
 % And solved for deflection
 u = pinv(K)*f;
 
-
-%sMh = basisskiftesMh(K);
-%hMs = inv(sMh);
-%Ks = sMh*K*hMs;
-
-%Wheel are plotted before deformation
-figure
-plotWheel(spokes,0)
-
+% Deformation is added to the spoke coordinates
 spokesAfter = spokeCoordinates(wheeldata,u);
 
+% Wheel is plotted after deformation
 figure
 plotWheel(spokesAfter,1)
 
+% Graphs of deformation are displayed
 figure
 plotU(wheeldata,K,fy,fz)
