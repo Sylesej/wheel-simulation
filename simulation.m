@@ -1,6 +1,6 @@
-clear
-clc
-close 'all'
+clear;
+clc;
+clf;
 %-------------------------------------------------------------------------
 %     Initialization
 %-------------------------------------------------------------------------
@@ -12,6 +12,7 @@ wHub = 80e-3; %[m] Width of hub (where spokes are attached)
 ESpokes = 210e9; %[Pa] Youngs module for spokes (steel)
 aSpokes = pi*(2e-3)^2; %[mm^2] Area of spoke
 aBracing = asin(wHub/(rRim-rHub)); %Bracing angle of spokes are computed
+<<<<<<< HEAD
 EIz = 70e6 * 2928.464;%E-modul for twill (gæt) gange inertimoment fra SW
 %1560*10^(-3*4)*70*10^9; %[Nm^2] bending stiffness of rim about x axis (as happens from weight
 EIy = 70e9 * 17924.40; %[?] bending stiffness of rim about z axis (as happens from tu
@@ -26,8 +27,14 @@ nPoints = pointFactor*nSpokes;
 fWeight =-1000;
 fTurn = 1000;
 
-fy = fWeight;
-fz = fTurn;
+EIx = 70e9 * 2964e-8;%E-modul for twill (gï¿½t) gange inertimoment fra SW
+%1560*10^(-3*4)*70*10^9; %[Nm^2] 
+%bending stiffness of rim about x axis (as happens from weight
+EIz = 1; %[?] bending stiffness of rim about z axis (as happens from turn)
+pointFactor = 0; %Faktor, der tilfï¿½jer til detaljering af FEM-beregningen.
+
+%Ting til stivhedsmatricen
+nPoints = pointFactor*nSpokes;
 
 wheeldata.t0 = t0;
 wheeldata.EIy = EIy;
