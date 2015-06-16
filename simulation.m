@@ -17,8 +17,13 @@ clc;
 %-------------------------------------------------------------------------
 
 % Load
+<<<<<<< HEAD
 fWeight =0;
 fTurn = 250;
+=======
+fWeight =-1000;
+fTurn = 0;
+>>>>>>> origin/master
 
 % Spoke properties
 nSpokes = 32; %[-] Number of spokes
