@@ -12,20 +12,25 @@ wHub = 80e-3; %[m] Width of hub (where spokes are attached)
 ESpokes = 210e9; %[Pa] Youngs module for spokes (steel)
 aSpokes = pi*(2e-3)^2; %[mm^2] Area of spoke
 aBracing = asin(wHub/(rRim-rHub)); %Bracing angle of spokes are computed
-EIx = 70e9 * 2964e-8;%E-modul for twill (gæt) gange inertimoment fra SW
+EIz = 70e6 * 2928.4;%E-modul for twill (gæt) gange inertimoment fra SW
 %1560*10^(-3*4)*70*10^9; %[Nm^2] bending stiffness of rim about x axis (as happens from weight
-EIz = 1; %[?] bending stiffness of rim about z axis (as happens from turn)
+EIy = 70e6 * 17924.40; %[?] bending stiffness of rim about z axis (as happens from turn)
+EA = 70e6 * 119.15
 pointFactor = 0; %Faktor, der tilføjer til detaljering af FEM-beregningen.
-
+kSpokes = ESpokes*aSpokes;
 %Ting til stivhedsmatricen
 nPoints = pointFactor*nSpokes;
 
 
 %Random
-fWeight = 1000;
+fWeight = -1809000;
+fTurn = -250;
+
+fy = fWeight;
+fz = fTurn;
 
 wheeldata.t0 = t0;
-wheeldata.EIx = EIx;
+wheeldata.EIy = EIy;
 wheeldata.EIz = EIz;
 wheeldata.nSpokes = nSpokes;
 wheeldata.rHub = rHub;
@@ -35,19 +40,40 @@ wheeldata.ESpokes = ESpokes;
 wheeldata.aSpokes = aSpokes;
 wheeldata.nPoints = nPoints;
 wheeldata.pointFactor = pointFactor;
-
+wheeldata.kSpokes = kSpokes;
 
 %-------------------------------------------------------------------------
 
 %Spoke tension is initialized before external load is applied.
 tSpoke = t0.*ones(1,nSpokes); 
 
+u0 = zeros(nSpokes*6,1);
+
 %Coordinates of spokes are generated
-spokes = spokeCoordinates(wheeldata);
+spokes = spokeCoordinates(wheeldata,u0);
+
+% Forces are put in a vector, forces applied in middle of rim
+a = nSpokes*6;
+f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kræfter
+
+% Stiffnessmatrix is generated
 K = stiffnessmatrix(wheeldata);
+% And solved for deflection
+u = pinv(K)*f;
+
+
+%sMh = basisskiftesMh(K);
+%hMs = inv(sMh);
+%Ks = sMh*K*hMs;
 
 %Wheel are plotted before deformation
-%plotWheel(spokes)
+figure
+plotWheel(spokes,0)
 
-%Force from a turn is applied
-%spokes = deformTurn(spokes,fTurn,wheeldata)
+spokesAfter = spokeCoordinates(wheeldata,u);
+
+figure
+plotWheel(spokesAfter,1)
+
+figure
+plotU(wheeldata,K,fy,fz)
