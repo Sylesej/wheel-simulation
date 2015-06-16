@@ -8,12 +8,11 @@ rRim = wheeldata.rRim;
 rHub = wheeldata.rHub;
 wHub = wheeldata.wHub;
 k= wheeldata.kSpokes;
-theta = atan(wheeldata.wHub/wheeldata.rRim); % vinklen mellem egen og f�lg
 
 [a,~] = size(K);
 f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kr�fter
 
-u = pinv(K)*f; % Deformation are found by solving the equation system
+u = pinv(K,10e-10000)*f; % Deformation are found by solving the equation system
 
 % -------------------------------------------------------------------------
 % Plots are made!
