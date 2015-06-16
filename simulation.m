@@ -17,7 +17,7 @@ clc;
 %-------------------------------------------------------------------------
 
 % Load
-fWeight =-1000;
+fWeight =0;
 fTurn = 250;
 
 % Spoke properties
@@ -30,7 +30,7 @@ t0 = 1e-3; %[N] Pretension in spokes
 Erim = 70e9; % [N/m^2] Youngs modulus for the rim
 EA = Erim * 119.15;%[N/m]
 EIz = Erim * 2964e-8; %E-modul for twill (g�t) gange inertimoment fra SW
-EIy = Erim * 17924.40; %[Nm^2] bending stiffness of rim around y axis
+EIy = Erim * 0.40e-8; %[Nm^2] bending stiffness of rim around y axis
 
 % Wheel dimensions
 rHub = 10e-3; %[m] Radius of hub

@@ -12,7 +12,7 @@ k= wheeldata.kSpokes;
 [a,~] = size(K);
 f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kr�fter
 
-u = pinv(K,10e-10000)*f; % Deformation are found by solving the equation system
+u = pinv(K,10e-10)*f; % Deformation are found by solving the equation system
 
 % -------------------------------------------------------------------------
 % Plots are made!
@@ -32,7 +32,7 @@ title 'Udbøjning i z-retning'
 subplot(2,2,4)
 l0 = sqrt((rRim-rHub)^2+wHub^2);
 ld = sqrt((rRim+u(2:6:a)-rHub).^2+(wHub+u(3:6:a)).^2); %pythagoras!
-egpower =(l0-ld)*k; %pythagoras?
+egpower =(l0-ld)*k %pythagoras?
 %Forces in spokes are calculated
 plot(egpower)
 title 'Eg-kr�fter'

@@ -136,19 +136,19 @@ for n=1:N
         
         
         %Punktet inden
-        K(N*6-3, n*6-1) = cos(Sigma/2)*6*EIy/l^2; %z
+        K(N*6-3, n*6-1) = 6*EIy/l^2; %z
         %K(N*6-2, n*6-1) = ... %Moment om x
         %    2*sin(Sigma/2)*cos(Sigma/2)*2*EIy/l;
         K(N*6-1, n*6-1) = ... %Moment om y
-            (cos(Sigma/2)^2-sin(Sigma/2)^2)*2*EIy/l;
+            2*EIy/l;
         K(N*6-0, n*6-1) = 0; %Moment om z
         
         %Punktet efter
-        K((n+1)*6-3, n*6-1) = -cos(Sigma/2)*6*EIy/l^2; %z
+        K((n+1)*6-3, n*6-1) = -6*EIy/l^2; %z
         %K((n+1)*6-2, n*6-1) = ... %moment om x
         %    -2*cos(Sigma/2)*sin(Sigma/2)*2*EIy/l;
         K((n+1)*6-1, n*6-1) = ... %moment om y
-            (cos(Sigma/2)^2-sin(Sigma/2)^2)*2*EIy/l;
+            2*EIy/l;
         K((n+1)*6-0, n*6-1) = 0;
         
         %Punktet selv
@@ -271,19 +271,19 @@ for n=1:N
         
         
         %Punktet inden
-        K((n-1)*6-3, n*6-1) = cos(Sigma/2)*6*EIy/l^2; %z
+        K((n-1)*6-3, n*6-1) = 6*EIy/l^2; %z
         %K((n-1)*6-2, n*6-1) = ... %Moment om x
         %    2*sin(Sigma/2)*cos(Sigma/2)*2*EIy/l;
         K((n-1)*6-1, n*6-1) = ... %Moment om y
-            (cos(Sigma/2)^2-sin(Sigma/2)^2)*2*EIy/l;
+            2*EIy/l;
         K((n-1)*6-0, n*6-1) = 0; %Moment om z
         
         %Punktet efter
-        K((1)*6-3, n*6-1) = -cos(Sigma/2)*6*EIy/l^2; %z
+        K((1)*6-3, n*6-1) = -6*EIy/l^2; %z
         %K((1)*6-2, n*6-1) = ... %moment om x
         %    -2*cos(Sigma/2)*sin(Sigma/2)*2*EIy/l;
         K((1)*6-1, n*6-1) = ... %moment om y
-            (cos(Sigma/2)^2-sin(Sigma/2)^2)*2*EIy/l;
+            2*EIy/l;
         K((1)*6-0, n*6-1) = 0;
         
         %Punktet selv
@@ -406,25 +406,25 @@ for n=1:N
         
         
         %Punktet inden
-        K((n-1)*6-3, n*6-1) = cos(Sigma/2)*6*EIy/l^2; %z
+        K((n-1)*6-3, n*6-1) = 6*EIy/l^2; %z
         %K((n-1)*6-2, n*6-1) = ... %Moment om x
         %    2*sin(Sigma/2)*cos(Sigma/2)*2*EIy/l;
         K((n-1)*6-1, n*6-1) = ... %Moment om y
-            (cos(Sigma/2)^2-sin(Sigma/2)^2)*2*EIy/l;
+            2*EIy/l;
         K((n-1)*6-0, n*6-1) = 0; %Moment om z
         
         %Punktet efter
-        K((n+1)*6-3, n*6-1) = -cos(Sigma/2)*6*EIy/l^2; %z
+        K((n+1)*6-3, n*6-1) = -6*EIy/l^2; %z
         %K((n+1)*6-2, n*6-1) = ... %moment om x
         %    -2*cos(Sigma/2)*sin(Sigma/2)*2*EIy/l;
         K((n+1)*6-1, n*6-1) = ... %moment om y
-            (cos(Sigma/2)^2-sin(Sigma/2)^2)*2*EIy/l;
+            2*EIy/l;
         K((n+1)*6-0, n*6-1) = 0;
         
         %Punktet selv
         K(n*6-3, n*6-1) = 0;
         K(n*6-2, n*6-1) = 0;
-        K(n*6-1, n*6-1) = 2*(cos(Sigma/2)^2-sin(Sigma/2)^2)*2*EIy/l;
+        K(n*6-1, n*6-1) = 2*4*EIy/l;
         K(n*6-0, n*6-1) = 0;
     end
 end
