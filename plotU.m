@@ -12,7 +12,10 @@ k= wheeldata.kSpokes;
 [a,~] = size(K);
 f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kr�fter
 
-u = pinv(K,10e-10000)*f; % Deformation are found by solving the equation system
+u = pinv(K,10e-100)*f; % Deformation are found by solving the equation system
+% Pinv fitter en invers matrix til K, og finder altså ikke den eksakte. Det
+% viser sig at ved at anvende en anden præcision end standard bliver
+% resultatet nærmere det forventede.
 
 % -------------------------------------------------------------------------
 % Plots are made!

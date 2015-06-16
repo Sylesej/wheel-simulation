@@ -18,7 +18,7 @@ clc;
 
 % Load
 fWeight =-1000;
-fTurn = 250;
+fTurn = 0;
 
 % Spoke properties
 nSpokes = 32; %[-] Number of spokes
