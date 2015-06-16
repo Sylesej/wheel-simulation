@@ -13,7 +13,9 @@ f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kr�fter
 u = pinv(K)*f; % Deformation are found by solving the equation system
 
 hold off
-
+% -------------------------------------------------------------------------
+% Plots are made!
+% -------------------------------------------------------------------------
 subplot(2,2,1)
 plot(u(1:6:a))
 title 'Udb�jning i x-retning'
@@ -31,6 +33,7 @@ u2 = (u(2:6:a)+u(3:6:a)*sin(theta))*k; %Forces in spokes are calculated
 plot(u2)
 title 'Eg-kr�fter'
 
+% Spoke forces are projected onto main axis to check force equilibrium.
 egF = zeros(length(u2),2);
 sigma = 1:wheeldata.nSpokes;
 sigma = sigma*2*pi/wheeldata.nSpokes;
@@ -39,5 +42,5 @@ sigma = sigma*2*pi/wheeldata.nSpokes;
 egF(:,1) = sin(sigma).*u2'; % Spoke forces are projected 
 egF(:,2) = cos(sigma).*u2';
 
-display('Summen af egekræfter i y')
-sum(egF(:,2))
+display(['Summen af egekræfter i y: ' num2str(sum(egF(:,2)))])
+display(['Summen af egekræfter i z: ' num2str(sum(egF(:,1)))])

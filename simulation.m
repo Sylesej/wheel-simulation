@@ -8,9 +8,9 @@
 % displacements due to the applied forces.
 % ------------------------------------------------------------------------
 
+close all
 clear;
 clc;
-clf;
 
 %-------------------------------------------------------------------------
 %     Variables
@@ -28,9 +28,8 @@ t0 = 1e-3; %[N] Pretension in spokes
 % Rim porperties
 Erim = 70e9; % Youngs modulus for the rim
 EA = Erim * 119.15; 
-EIx = Erim * 2964e-8;%E-modul for twill (g�t) gange inertimoment fra SW
+EIz = Erim * 2964e-8; %E-modul for twill (g�t) gange inertimoment fra SW
 EIy = Erim * 17924.40; %[Nm^2] bending stiffness of rim around y axis
-EIz = 1; %[?] bending stiffness of rim about z axis
 
 % Wheel dimensions
 nSpokes = 32; %[-] Number of spokes

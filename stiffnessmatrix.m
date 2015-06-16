@@ -158,7 +158,7 @@ for n=1:N
         K(n*6-0, n*6-1) = 0;
         
     elseif(n==N)
-         %Starten er kun i x-y og alle z-kr�fter og momenter bliver 0.
+        %Starten er kun i x-y og alle z-kr�fter og momenter bliver 0.
         %___________________________________________________________%
         %Momenterne om z grundet vinkelrotationen om z-aksen i et punkt.
         K(n*6, n*6) = 8*EIz/l;   %Punkt(n)
