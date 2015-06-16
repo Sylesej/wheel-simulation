@@ -1,4 +1,4 @@
-function plotWheel(spokes)
+function plotWheel(spokes,deform)
 %This function plots the wheel, given the spoke coordinates given in the
 %spokes array.
 nSpokes = length(spokes(:,1));
@@ -25,9 +25,13 @@ for n = 1:2:2*nSpokes
 end
 %plot3(plotSpoke(n*2-1),plotSpokeY,plotSpokeZ)
 axis 'equal'
-xlabel('x [m]')
+xlabel('z [m]')
 ylabel('y [m]')
-zlabel('z [m]')
-title('Udeformeret hjul')
+zlabel('x [m]')
+if deform==0
+    title('Udeformeret hjul')
+else
+    title('Deformeret hjul')
+end
 plot3(spokes(:,2),spokes(:,4),spokes(:,6),'g')
 %legend('Spokes','Rim')
