@@ -71,20 +71,16 @@ for n=1:N
         %Punktet inden (n-1)
         K(N*6-5, n*6-4) =...%x
             -cos(Sigma/2)*sin(Sigma/2)*(EA/l+12*EIz/l^3);
-            %-(cos(Sigma/2)^2*12*EIz/l^3+sin(Sigma/2)^2*EA/l); %Fejl?
         K(N*6-4, n*6-4) =...%y
             -cos(Sigma/2)^2*12*EIz/l^3+sin(Sigma/2)^2*EA/l;
-            %-sin(Sigma/2)*cos(Sigma/2)*(12*EIz/l^3+EA/l); %Fejl?
         K(N*6-0, n*6-4) = -cos(Sigma/2)*6*EIz/l^2; %moment om z
         
         %Punktet efter (n+1)
         K((n+1)*6-5, n*6-4) =...%x
             cos(Sigma/2)*sin(Sigma/2)*(EA/l+12*EIz/l^3);
-            %cos(Sigma/2)^2*12*EIz/l^3+sin(Sigma/2)^2*EA/l;%Fejl?
         
         K((n+1)*6-4, n*6-4) =...%y
             -cos(Sigma/2)^2*12*EIz/l^3+sin(Sigma/2)^2*EA/l;
-            %-sin(Sigma/2)*cos(Sigma/2)*(12*EIz/l^3+EA/l); %Fejl?
         K((n+1)*6-0, n*6-4) = cos(Sigma/2)*6*EIz/l^2; %Moment om z
         
         %Punktet selv(n)
@@ -99,54 +95,31 @@ for n=1:N
         %Punktet inden (n-1)
         
         K(N*6-3,n*6-3) = -12*EIy/l^3; % z
-%         K(N*6-2,n*6-3) = sin(Sigma/2)*6*EIy/l^2; 
-% moment om x antages til 0
         K(N*6-1,n*6-3) = -6*EIy/l^2; % moment om y
         K(N*6-0,n*6-3) = 0; % moment om z
         
         %Punktet efter (n+1)
         
         K((n+1)*6-3,n*6-3) = -12*EIy/l^3; % z
-%         K((n+1)*6-2,n*6-3) = sin(Sigma/2)*6*EIy/l^2; 
-% moment om x antages til 0
         K((n+1)*6-1,n*6-3) = 6*EIy/l^2; % moment om y
         K((n+1)*6-0,n*6-3) = 0; % moment om z
         
         %Punktet selv
         
         K(n*6-3, n*6-3) = 2*12*EIy/l^3 + k*sin(theta); %z
-%         K(n*6-2, n*6-3) = 2*sin(Sigma/2)*6*EIy/l^2; 
-%moment om x antages til 0
         K(n*6-1, n*6-3) = 0; %moment om y
         K(n*6-0, n*6-3) = 0; %moment om z
         
-        %Reaktioner grundet vinkeldrejning om x-aksen
-        
-%         %Punktet inden
-%         K(N*6-3, n*6-2) = sin(Sigma/2)*6*EIy/l^2; %z
-%         K(N*6-2, n*6-2) = 
-%         K(N*6-1, n*6-2) =
-%         K(N*6-0, n*6-2) = 
-%                
-        %Punktet efter
-        
-        %Punktet selv
-        
         %Reaktioner grundet vinkeldrejning om y-aksen
-        
         
         %Punktet inden
         K(N*6-3, n*6-1) = 6*EIy/l^2; %z
-        %K(N*6-2, n*6-1) = ... %Moment om x
-        %    2*sin(Sigma/2)*cos(Sigma/2)*2*EIy/l;
         K(N*6-1, n*6-1) = ... %Moment om y
             2*EIy/l;
         K(N*6-0, n*6-1) = 0; %Moment om z
         
         %Punktet efter
         K((n+1)*6-3, n*6-1) = -6*EIy/l^2; %z
-        %K((n+1)*6-2, n*6-1) = ... %moment om x
-        %    -2*cos(Sigma/2)*sin(Sigma/2)*2*EIy/l;
         K((n+1)*6-1, n*6-1) = ... %moment om y
             2*EIy/l;
         K((n+1)*6-0, n*6-1) = 0;
@@ -232,56 +205,29 @@ for n=1:N
         %positiv "udad".
         
         %Punktet inden (n-1)
-        
         K((n-1)*6-3,n*6-3) = -12*EIy/l^3; % z
-%         K(N*6-2,n*6-3) = sin(Sigma/2)*6*EIy/l^2; 
-% moment om x antages til 0
         K((n-1)*6-1,n*6-3) = -6*EIy/l^2; % moment om y
         K((n-1)*6-0,n*6-3) = 0; % moment om z
         
         %Punktet efter (n+1)
-        
         K((1)*6-3,n*6-3) = -12*EIy/l^3; % z
-%         K((n+1)*6-2,n*6-3) = sin(Sigma/2)*6*EIy/l^2; 
-% moment om x antages til 0
         K((1)*6-1,n*6-3) = 6*EIy/l^2; % moment om y
         K((1)*6-0,n*6-3) = 0; % moment om z
         
         %Punktet selv
-        
         K(n*6-3, n*6-3) = 2*12*EIy/l^3 + k*sin(theta); %z
-%         K(n*6-2, n*6-3) = 2*sin(Sigma/2)*6*EIy/l^2; 
-%moment om x antages til 0
         K(n*6-1, n*6-3) = 0; %moment om y
         K(n*6-0, n*6-3) = 0; %moment om z
         
-        %Reaktioner grundet vinkeldrejning om x-aksen
-        
-%         %Punktet inden
-%         K(N*6-3, n*6-2) = sin(Sigma/2)*6*EIy/l^2; %z
-%         K(N*6-2, n*6-2) = 
-%         K(N*6-1, n*6-2) =
-%         K(N*6-0, n*6-2) = 
-%                
-        %Punktet efter
-        
-        %Punktet selv
-        
         %Reaktioner grundet vinkeldrejning om y-aksen
-        
-        
         %Punktet inden
         K((n-1)*6-3, n*6-1) = 6*EIy/l^2; %z
-        %K((n-1)*6-2, n*6-1) = ... %Moment om x
-        %    2*sin(Sigma/2)*cos(Sigma/2)*2*EIy/l;
         K((n-1)*6-1, n*6-1) = ... %Moment om y
             2*EIy/l;
         K((n-1)*6-0, n*6-1) = 0; %Moment om z
         
         %Punktet efter
         K((1)*6-3, n*6-1) = -6*EIy/l^2; %z
-        %K((1)*6-2, n*6-1) = ... %moment om x
-        %    -2*cos(Sigma/2)*sin(Sigma/2)*2*EIy/l;
         K((1)*6-1, n*6-1) = ... %moment om y
             2*EIy/l;
         K((1)*6-0, n*6-1) = 0;
@@ -294,8 +240,6 @@ for n=1:N
         
     else  %if(mod(n-1,step+1)==0)
         
-        %Starten er kun i x-y og alle z-kr�fter og momenter bliver 0.
-        %___________________________________________________________%
         %Momenterne om z grundet vinkelrotationen om z-aksen i et punkt.
         K(n*6, n*6) = 8*EIz/l;   %Punkt(n)
         K((n-1)*6, n*6) = 2*EIz/l;   %Punkt(n-1)
@@ -363,60 +307,34 @@ for n=1:N
             2*(cos(Sigma/2)^2*12*EIz/l^3+sin(Sigma/2)^2*EA/l)+k;
         K(n*6-0, n*6-4) = 0;%Moment om z
         
-        %Reaktioner grundet forflytning i z-retningen z-asksen regnes
-        %positiv "udad".
-        
         %Punktet inden (n-1)
-        
         K((n-1)*6-3,n*6-3) = -12*EIy/l^3; % z
-%         K(N*6-2,n*6-3) = sin(Sigma/2)*6*EIy/l^2; 
-% moment om x antages til 0
+        % moment om x antages til 0
         K((n-1)*6-1,n*6-3) = -6*EIy/l^2; % moment om y
         K((n-1)*6-0,n*6-3) = 0; % moment om z
         
         %Punktet efter (n+1)
-        
         K((n+1)*6-3,n*6-3) = -12*EIy/l^3; % z
-%         K((n+1)*6-2,n*6-3) = sin(Sigma/2)*6*EIy/l^2; 
-% moment om x antages til 0
+        %moment om x antages til 0
         K((n+1)*6-1,n*6-3) = 6*EIy/l^2; % moment om y
         K((n+1)*6-0,n*6-3) = 0; % moment om z
         
         %Punktet selv
-        
         K(n*6-3, n*6-3) = 2*12*EIy/l^3 + k*sin(theta); %z
-%         K(n*6-2, n*6-3) = 2*sin(Sigma/2)*6*EIy/l^2; 
-%moment om x antages til 0
+        %moment om x antages til 0
         K(n*6-1, n*6-3) = 0; %moment om y
         K(n*6-0, n*6-3) = 0; %moment om z
         
-        %Reaktioner grundet vinkeldrejning om x-aksen
-        
-%         %Punktet inden
-%         K(N*6-3, n*6-2) = sin(Sigma/2)*6*EIy/l^2; %z
-%         K(N*6-2, n*6-2) = 
-%         K(N*6-1, n*6-2) =
-%         K(N*6-0, n*6-2) = 
-%                
-        %Punktet efter
-        
-        %Punktet selv
-        
-        %Reaktioner grundet vinkeldrejning om y-aksen
-        
-        
         %Punktet inden
         K((n-1)*6-3, n*6-1) = 6*EIy/l^2; %z
-        %K((n-1)*6-2, n*6-1) = ... %Moment om x
-        %    2*sin(Sigma/2)*cos(Sigma/2)*2*EIy/l;
+        %moment om x antages til 0
         K((n-1)*6-1, n*6-1) = ... %Moment om y
             2*EIy/l;
         K((n-1)*6-0, n*6-1) = 0; %Moment om z
         
         %Punktet efter
         K((n+1)*6-3, n*6-1) = -6*EIy/l^2; %z
-        %K((n+1)*6-2, n*6-1) = ... %moment om x
-        %    -2*cos(Sigma/2)*sin(Sigma/2)*2*EIy/l;
+        %moment om x antages til 0
         K((n+1)*6-1, n*6-1) = ... %moment om y
             2*EIy/l;
         K((n+1)*6-0, n*6-1) = 0;
