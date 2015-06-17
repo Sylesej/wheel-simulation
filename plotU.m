@@ -7,7 +7,8 @@ function plotU(wheeldata,K,fy,fz)
 rRim = wheeldata.rRim;
 rHub = wheeldata.rHub;
 wHub = wheeldata.wHub;
-k= wheeldata.kSpokes;
+k    = wheeldata.kSpokes;
+n    = wheeldata.nSpokes;
 
 [a,~] = size(K);
 f = zeros(a,1); f(a/2-(0*6)-4) = fy;
@@ -24,14 +25,20 @@ u = pinv(K,10e-100)*f; % Deformation are found by solving the equation system
 subplot(2,2,1)
 plot(u(1:6:a))
 title 'Udb�jning i x-retning'
+xlabel('Eg nummer')
+ylabel('Udbøjning [m]')
 
 subplot(2,2,2)
 plot(u(2:6:a))
 title 'Udb�jning i y-retning'
+xlabel('Eg nummer')
+ylabel('Udbøjning [m]')
 
 subplot(2,2,3)
 plot(u(3:6:a))
 title 'Udbøjning i z-retning'
+xlabel('Eg nummer')
+ylabel('Udbøjning [m]')
 
 subplot(2,2,4)
 l0 = sqrt((rRim-rHub)^2+wHub^2);
@@ -40,6 +47,8 @@ egpower =-(l0-ld)*k; %pythagoras?
 %Forces in spokes are calculated
 plot(egpower)
 title 'Eg-kr�fter'
+xlabel('Eg nummer')
+ylabel('Ændring i spænding [N]')
 
 % Spoke forces are projected onto main axis to check force equilibrium.
 egF = zeros(length(egpower),2);
@@ -49,5 +58,12 @@ sigma = sigma*2*pi/wheeldata.nSpokes;
 
 egF(:,1) = sin(sigma).*egpower'; % Spoke forces are projected 
 egF(:,2) = cos(sigma).*egpower';
+
+figure
+plot(1:n,u(1:6:a),1:n,u(2:6:a),1:n,u(3:6:a))
+title('Udbøjninger')
+xlabel('Nummer eg [-]')
+ylabel('Udbøjning [N]')
+legend('x','y','z')
 
 display(['Summen af egekræfter i y: ' num2str(sum(egF(:,2)))])
