@@ -63,9 +63,6 @@ u0 = zeros(nSpokes*6,1); % Vector holding deformation before load (0)
 %Coordinates of spokes before load are generated
 spokes = spokeCoordinates(wheeldata,u0);
 
-figure %Wheel are plotted before deformation
-plotWheel(spokes,0)
-
 % Forces are put in a vector, forces are applied in middle of rim
 a = nSpokes*6;
 f = zeros(a,1); f(a/2-4) = fy; f(a/2-3) = fz; %Definer kr�fter
@@ -78,9 +75,11 @@ u = pinv(K)*f;
 % Deformation is added to the spoke coordinates
 spokesAfter = spokeCoordinates(wheeldata,u);
 
-% Wheel is plotted after deformation
 figure
-plotWheel(spokesAfter,1)
+subplot(1,2,1)
+plotWheel(spokesAfter,1) % Wheel is plotted after deformation
+subplot(1,2,2)
+plotWheel(spokes,0) %Wheel are plotted before deformation
 
 % Graphs of deformation are displayed
 figure

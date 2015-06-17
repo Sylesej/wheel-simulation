@@ -35,7 +35,7 @@ title 'Udbøjning i z-retning'
 subplot(2,2,4)
 l0 = sqrt((rRim-rHub)^2+wHub^2);
 ld = sqrt((rRim+u(2:6:a)-rHub).^2+(wHub+u(3:6:a)).^2); %pythagoras!
-egpower =(l0-ld)*k %pythagoras?
+egpower =(l0-ld)*k; %pythagoras?
 %Forces in spokes are calculated
 plot(egpower)
 title 'Eg-kr�fter'
