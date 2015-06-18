@@ -18,7 +18,7 @@ clc;
 
 % Load
 fWeight =-1000;
-fTurn = 250;
+fTurn = -500;
 
 % Spoke properties
 nSpokes = 32; %[-] Number of spokes
@@ -26,11 +26,18 @@ ESpokes = 210e9; %[Pa] Youngs module for spokes (steel)
 aSpokes = pi*(2e-3)^2; %[mm^2] Area of spoke
 t0 = 1e-3; %[N] Pretension in spokes
 
-% Rim porperties
+% Rim porperties for 3mm
 Erim = 70e9;                %[N/m^2] Youngs modulus for the rim
-EA = Erim * 233.9e-6;       %[N/m]
-EIz = Erim * 3241.85e-12;   %[Nm^2] E-modul for twill (g�t) gange inertimoment fra SW
-EIy = Erim * 21106.35e-12;  %[Nm^2] bending stiffness of rim around y axis
+EA = Erim * 186.74e-6;       %[N] Area of cross-section (from SW)
+EIz = Erim * 4963.02e-12;   %[Nm^2] E-modul for twill (g�t) gange inertimoment fra SW
+EIy = Erim * 31331.61e-12;  %[Nm^2] bending stiffness of rim around y axis
+
+% % Rim porperties for 2mm
+% Erim = 70e9;                %[N/m^2] Youngs modulus for the rim
+% EA = Erim * 123.81e-6;       %[N] Area of cross-section (from SW)
+% EIz = Erim * 3285.91e-12;   %[Nm^2] E-modul for twill (g�t) gange inertimoment fra SW
+% EIy = Erim * 19958.06e-12;  %[Nm^2] bending stiffness of rim around y axis
+
 
 % Wheel dimensions
 rHub = 10e-3; %[m] Radius of hub
